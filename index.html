@@ -1,0 +1,268 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Школьное лесничество «БЕРЁЗКА»</title>
+    <style>
+        /* БАЗОВЫЕ СТИЛИ */
+        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; line-height: 1.6; color: #333; background: #fdfdfd; overflow-x: hidden; }
+        
+        /* ГЛАВНЫЙ ЭКРАН (HERO) */
+        .hero {
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('img/forest.jpg');
+            background-size: cover;
+            background-position: center;
+            height: 80vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: white;
+        }
+        .hero-content h2 { font-size: 3.5rem; margin: 0 0 15px; text-shadow: 2px 2px 10px rgba(0,0,0,0.5); }
+        .hero-content p { font-size: 1.5rem; margin-bottom: 35px; opacity: 0.9; }
+        .hero-btn { 
+            background: #d4af37; color: #fff; padding: 18px 45px; 
+            text-decoration: none; font-weight: bold; border-radius: 50px; 
+            font-size: 1.2rem; transition: 0.3s; box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+            display: inline-block;
+        }
+        .hero-btn:hover { background: #fff; color: #2d5a27; transform: scale(1.05); }
+
+        /* НАВИГАЦИЯ */
+        nav { background: #3e7b37; padding: 0.8rem; text-align: center; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.1); }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; transition: 0.3s; }
+        nav a:hover { color: #d1ffc4; }
+        
+        .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
+
+        /* ВИДЖЕТ ПОГОДЫ */
+        .weather-box {
+            background: white; padding: 30px; border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: flex; align-items: center; justify-content: center;
+            gap: 40px; margin: -60px auto 60px; position: relative; z-index: 10;
+            border: 1px solid #e0eee0; transition: 0.5s;
+            border-left: 10px solid #3e7b37;
+        }
+        .weather-icon { font-size: 4rem; }
+
+        /* ТАЙМЛАЙН */
+        .timeline-section { margin: 100px 0; text-align: center; }
+        .timeline { position: relative; display: flex; justify-content: space-between; margin-top: 120px; }
+        .timeline::before { content: ''; position: absolute; top: 12px; left: 5%; right: 5%; height: 4px; background: #e0eee0; z-index: 1; }
+        .timeline-item { position: relative; z-index: 2; width: 22%; text-align: center; cursor: pointer; }
+        .timeline-dot { 
+            width: 24px; height: 24px; background: #2d5a27; border: 5px solid white; 
+            border-radius: 50%; margin: 0 auto 15px; box-shadow: 0 0 10px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        .timeline-item:hover .timeline-dot { background: #d4af37; transform: scale(1.2); }
+        .timeline-year { font-weight: bold; color: #2d5a27; font-size: 1.4rem; display: block; }
+
+        .timeline-img-popup {
+            position: absolute; bottom: 130%; left: 50%;
+            transform: translateX(-50%) scale(0.8);
+            width: 180px; height: 120px; background: #fff;
+            border: 3px solid #2d5a27; border-radius: 12px;
+            overflow: hidden; box-shadow: 0 15px 35px rgba(0,0,0,0.2);
+            opacity: 0; visibility: hidden;
+            transition: 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            z-index: 100;
+        }
+        .timeline-img-popup img { width: 100%; height: 100%; object-fit: cover; }
+        .timeline-item:hover .timeline-img-popup { opacity: 1; visibility: visible; transform: translateX(-50%) scale(1); }
+
+        /* --- БЛОК ДОСТИЖЕНИЙ --- */
+        .achievements-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; margin-top: 50px; }
+        .diploma-frame {
+            background: #fff; padding: 15px; border: 12px solid #5d4037;
+            outline: 3px solid #d4af37; box-shadow: 10px 10px 25px rgba(0,0,0,0.2);
+            transition: 0.4s ease; text-align: center;
+        }
+        .diploma-frame:hover { transform: translateY(-10px) rotate(1deg); }
+        .diploma-inner { background: #fcfcfc; height: 380px; display: flex; align-items: center; justify-content: center; overflow: hidden; border: 1px solid #f0f0f0; }
+        .diploma-inner img { width: 100%; height: 100%; object-fit: contain; }
+        
+        .archive-btn-wrap { text-align: center; margin-top: 50px; }
+        .archive-link-btn {
+            display: inline-block; padding: 15px 40px; background: #3e7b37; color: white;
+            text-decoration: none; border-radius: 50px; font-weight: bold; transition: 0.3s;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .archive-link-btn:hover { background: #2d5a27; transform: scale(1.05); }
+
+        /* ЭКО-СОВЕТ */
+        .eco-tip { 
+            background: #2d5a27; color: white; padding: 40px; border-radius: 20px; 
+            margin: 80px 0; text-align: center; box-shadow: 0 10px 20px rgba(45,90,39,0.2);
+        }
+        #tip-text { font-size: 1.3rem; font-style: italic; display: block; margin-top: 15px; transition: 0.5s; }
+
+        footer { background: #2d5a27; color: white; text-align: center; padding: 50px; margin-top: 100px; }
+
+        @media (max-width: 768px) {
+            .hero-content h2 { font-size: 2.2rem; }
+            .timeline { flex-direction: column; gap: 80px; align-items: center; }
+            .timeline::before { display: none; }
+            .weather-box { flex-direction: column; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+
+<nav>
+    <a href="index.html">Главная</a>
+    <a href="about.html">О нас</a>
+    <a href="projects.html">Доска почёта</a>
+    <a href="gallery.html">Галерея</a>
+    <a href="contacts.html">Контакты</a>
+</nav>
+
+<section class="hero">
+    <div class="hero-content">
+        <h2>Растим лес и растем вместе с ним!</h2>
+        <p>Присоединяйся к команде юных лесников лесничества «БЕРЁЗКА»</p>
+        <a href="contacts.html" class="hero-btn">Стать участником</a>
+    </div>
+</section>
+
+<div class="container">
+    
+    <div class="weather-box" id="weather-container">
+        <div class="weather-icon" id="weather-icon">🌤️</div>
+        <div style="text-align: left;">
+            <h3 style="margin: 0; color: #2d5a27; font-size: 1.6rem;">Погода в Славкино</h3>
+            <p style="margin: 5px 0; font-size: 1.2rem;"><span id="temp-value">--</span>°C, <span id="weather-desc">загрузка...</span></p>
+            <small id="weather-advice" style="color: #666; font-size: 1rem;">Синхронизация с метеостанцией...</small>
+        </div>
+    </div>
+
+    <section class="timeline-section">
+        <h2 style="color: #2d5a27; font-size: 2.2rem;">Наша история</h2>
+        <div class="timeline">
+            <div class="timeline-item">
+                <div class="timeline-img-popup"><img src="img/history1.jpg" alt="1968"></div>
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">1968</span>
+                <p>Основание лесничества</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">1985</span>
+                <p>Первые награды</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2006</span>
+                <p>Признание успеха</p>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-dot"></div>
+                <span class="timeline-year">2024</span>
+                <p>Новые горизонты</p>
+            </div>
+        </div>
+    </section>
+
+    <section id="achievements">
+        <h2 style="text-align: center; color: #2d5a27; font-size: 2.2rem; margin-bottom: 60px;">Наши достижения</h2>
+        
+        <div class="achievements-grid">
+            <div class="diploma-frame">
+                <div class="diploma-inner"><img src="2025-2026/1000018789.jpg" alt="Диплом 2026"></div>
+                <p style="margin-top:15px; font-weight:bold; color: #2d5a27;">Победитель смотра-конкурса 2026</p>
+                <p style="font-size: 0.9rem; color: #666;">I место в номинации «Организация деятельности»</p>
+            </div>
+            <div class="diploma-frame">
+                <div class="diploma-inner"><img src="2020/1000018834.jpg" alt="Всероссийский съезд"></div>
+                <p style="margin-top:15px; font-weight:bold; color: #2d5a27;">Всероссийский уровень</p>
+                <p style="font-size: 0.9rem; color: #666;">Сертификат за вклад в создание «Памятной Аллеи»</p>
+            </div>
+            <div class="diploma-frame">
+                <div class="diploma-inner"><img src="2020/1000018833.jpg" alt="Лучшее лесничество"></div>
+                <p style="margin-top:15px; font-weight:bold; color: #2d5a27;">Лучшее лесничество области</p>
+                <p style="font-size: 0.9rem; color: #666;">Диплом I степени, 2019 год</p>
+            </div>
+        </div>
+
+        <div class="archive-btn-wrap">
+            <a href="archive.html" class="archive-link-btn">Открыть полный архив наград (2019-2026)</a>
+        </div>
+    </section>
+
+    <div class="eco-tip">
+        <strong style="font-size: 1.5rem;">🍃 Экологический совет дня</strong>
+        <span id="tip-text">...</span>
+    </div>
+
+</div>
+
+<footer>
+    <p>© 2026 Школьное лесничество «БЕРЁЗКА»</p>
+    <p style="opacity: 0.7; font-size: 0.9rem;">МБОУ Славкинская СШ, Николаевский район</p>
+</footer>
+
+<script>
+    // Скрипт эко-советов
+    const tips = [
+        "Обычное дерево производит столько кислорода, сколько нужно для 3-х человек.",
+        "Одна тонна макулатуры спасает 17 взрослых деревьев.",
+        "Пластиковая бутылка разлагается в природе до 500 лет.",
+        "Один муравейник защищает от вредителей четверть гектара леса.",
+        "Лес снижает уровень шума от дорог на 30%.",
+        "Батарейка, брошенная в лесу, загрязняет 20 кв. метров земли."
+    ];
+
+    function updateTip() {
+        const text = document.getElementById('tip-text');
+        text.style.opacity = 0;
+        setTimeout(() => {
+            text.innerText = tips[Math.floor(Math.random() * tips.length)];
+            text.style.opacity = 1;
+        }, 500);
+    }
+
+    // Скрипт погоды
+    async function getSimpleWeather() {
+        try {
+            const response = await fetch('https://wttr.in/Nikolayevka?format=j1');
+            const data = await response.json();
+            const temp = data.current_condition[0].temp_C;
+            const desc = data.current_condition[0].lang_ru[0].value;
+
+            document.getElementById('temp-value').innerText = temp > 0 ? '+' + temp : temp;
+            document.getElementById('weather-desc').innerText = desc;
+
+            const icon = document.getElementById('weather-icon');
+            const advice = document.getElementById('weather-advice');
+            const container = document.getElementById('weather-container');
+
+            if (parseInt(temp) < 5) {
+                icon.innerText = "❄️";
+                advice.innerText = "Холодно. Проверяем кормушки для птиц!";
+                container.style.borderLeftColor = "#2196F3";
+            } else if (parseInt(temp) > 25) {
+                icon.innerText = "☀️";
+                advice.innerText = "Жарко! Нужен полив саженцам.";
+                container.style.borderLeftColor = "#FF9800";
+            } else {
+                icon.innerText = "🍃";
+                advice.innerText = "Хорошая погода для работы в лесу.";
+                container.style.borderLeftColor = "#4CAF50";
+            }
+        } catch (e) {
+            document.getElementById('weather-desc').innerText = "данные обновляются";
+        }
+    }
+
+    window.onload = () => {
+        getSimpleWeather();
+        updateTip();
+        setInterval(updateTip, 10000);
+    };
+</script>
+
+</body>
+</html>

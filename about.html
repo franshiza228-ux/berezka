@@ -1,0 +1,148 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>О нас — БЕРЁЗКА</title>
+    <style>
+        body { font-family: 'Segoe UI', sans-serif; margin: 0; line-height: 1.6; color: #333; background-color: #fdfdfd; }
+        header { background: #2d5a27; color: white; padding: 1rem; text-align: center; }
+        nav { background: #3e7b37; padding: 0.5rem; text-align: center; position: sticky; top: 0; z-index: 1000; }
+        nav a { color: white; margin: 0 15px; text-decoration: none; font-weight: bold; }
+        
+        .container { max-width: 1000px; margin: 20px auto; padding: 0 20px; }
+        
+        .history-section { background: #f4f4f4; padding: 30px; border-radius: 15px; margin-bottom: 40px; }
+        .history-section h2 { color: #2d5a27; border-bottom: 2px solid #2d5a27; padding-bottom: 10px; }
+
+        /* Контейнер презентации */
+        .presentation-container { 
+            margin: 30px 0; 
+            background: #000; 
+            border-radius: 10px; 
+            overflow: hidden; 
+            position: relative; 
+            padding-top: 56.25%; 
+            box-shadow: 0 10px 20px rgba(0,0,0,0.15);
+        }
+        .presentation-container iframe { position: absolute; top: 0; left: 0; width: 100%; height: 100%; border: none; }
+
+        .article-link { text-decoration: none; color: inherit; display: block; margin-bottom: 20px; }
+        .article-block { background: white; padding: 20px; border-radius: 10px; box-shadow: 0 4px 6px rgba(0,0,0,0.05); transition: 0.2s; border-left: 5px solid #2d5a27; }
+        .article-block:hover { transform: translateY(-3px); box-shadow: 0 6px 12px rgba(0,0,0,0.1); }
+        .year-tag { background: #2d5a27; color: white; padding: 3px 10px; border-radius: 5px; font-size: 0.9rem; font-weight: bold; }
+
+        .team-title { text-align: center; color: #2d5a27; margin-top: 50px; margin-bottom: 30px; font-size: 2rem; }
+        .team-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 25px; margin-bottom: 50px; }
+        
+        .member-card { 
+            background: white; 
+            padding: 25px 20px; 
+            border-radius: 12px; 
+            text-align: center; 
+            box-shadow: 0 4px 10px rgba(0,0,0,0.06); 
+            border: 1px solid #eaeaea;
+        }
+        
+        .period-badge {
+            display: inline-block;
+            background: #eaf2e8;
+            color: #2d5a27;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 1.05rem;
+            margin-bottom: 15px;
+            border: 1px solid #cce0c9;
+        }
+
+        .member-card h3 { margin: 10px 0 5px 0; color: #333; font-size: 1.3rem; }
+        .member-role { color: #2d5a27; font-weight: bold; margin: 0; font-size: 0.95rem; }
+
+        .years-section { background: #fff; padding: 30px; border-radius: 15px; box-shadow: 0 4px 12px rgba(0,0,0,0.05); border: 1px solid #eee; margin-top: 40px; }
+        .years-section h2 { color: #2d5a27; text-align: center; margin-bottom: 30px; }
+        .years-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 20px; }
+        .year-card { background: #f9f9f9; padding: 25px; border-radius: 10px; text-align: center; text-decoration: none; color: #333; font-weight: bold; font-size: 1.2rem; border: 2px solid #eef3ed; transition: 0.3s; }
+        .year-card:hover { background: #2d5a27; color: white; }
+
+        footer { background: #2d5a27; color: white; text-align: center; padding: 20px; margin-top: 40px; }
+    </style>
+</head>
+<body>
+
+<header>
+    <h1>О лесничестве</h1>
+</header>
+
+<nav>
+    <a href="index.html">Главная</a>
+    <a href="about.html">О нас</a>
+    <a href="projects.html">Доска почёта</a>
+    <a href="gallery.html">Галерея</a>
+    <a href="contacts.html">Контакты</a>
+</nav>
+
+<div class="container">
+    <section class="history-section">
+        <h2>Наша миссия</h2>
+        <p>Школьное лесничество «Берёзка» — это добровольное объединение учащихся. Мы сочетаем изучение биологии с практической помощью природе: от восстановления лесных массивов до научной работы.</p>
+    </section>
+
+    <h2 style="color: #2d5a27;">Презентация: Путь «Берёзки»</h2>
+    <div class="presentation-container">
+        <iframe src="https://docs.google.com/presentation/d/e/2PACX-1vQEGg-k7_j_NRuGdvALqQc7NsGlSUTPktXOWAMSoT1E1ac3uv-alL6cZ-N9Y8fouw/pubembed?start=false&loop=false&delayms=3000" allowfullscreen="true"></iframe>
+    </div>
+
+    <h2 style="color: #2d5a27; margin-top: 40px;">Летопись наших дел</h2>
+    <a href="history-1968.html" class="article-link">
+        <div class="article-block">
+            <span class="year-tag">1968 — 1980</span>
+            <h3>Становление и первые шаги</h3>
+            <p>Основание лесничества Ксенофонтовым К.В. Организация первых посадок и формирование традиций защиты природы.</p>
+        </div>
+    </a>
+
+    <a href="history-2000.html" class="article-link">
+        <div class="article-block">
+            <span class="year-tag">2000 — н.в.</span>
+            <h3>Новая история и технологии</h3>
+            <p>Современный этап жизни «Березки»: возрождение традиций под руководством Цыпляевой И.А. и цифровизация.</p>
+        </div>
+    </a>
+
+    <h2 class="team-title">Наши руководители в разные годы</h2>
+    <div class="team-grid">
+        <div class="member-card">
+            <div class="period-badge">1968 — 1980 гг.</div>
+            <h3>Ксенофонтов К. В.</h3>
+            <p class="member-role">Основатель, учитель биологии</p>
+        </div>
+        <div class="member-card">
+            <div class="period-badge">1980 — 2000 гг.</div>
+            <h3>Акимов Н. М.</h3>
+            <p class="member-role">Учитель географии и биологии</p>
+        </div>
+        <div class="member-card">
+            <div class="period-badge">2000 — н.в.</div>
+            <h3>Цыпляева И. А.</h3>
+            <p class="member-role">Действующий руководитель</p>
+        </div>
+    </div>
+
+    <div class="years-section">
+        <h2>Архив достижений по годам</h2>
+        <div class="years-grid">
+            <a href="year-2025-2026.html" class="year-card">2025 — 2026</a>
+            <a href="year-2023-2024.html" class="year-card">2023 — 2024</a>
+            <a href="year-2021-2022.html" class="year-card">2021 — 2022</a>
+            <a href="year-2019-2020.html" class="year-card">2019 — 2020</a>
+        </div>
+    </div>
+</div>
+
+<footer>
+    <p>&copy; 2026 Школьное лесничество «БЕРЁЗКА»</p>
+</footer>
+
+</body>
+</html>
