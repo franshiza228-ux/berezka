@@ -1,4 +1,4 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ru">
 <head>
     <meta charset="UTF-8">
@@ -6,7 +6,7 @@
     <title>Школьное лесничество «БЕРЁЗКА»</title>
     <style>
         /* БАЗОВЫЕ СТИЛИ */
-        body { font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; line-height: 1.6; color: #333; background: #fdfdfd; overflow-x: hidden; }
+        body { overflow-wrap: break-word; word-break: break-word;  font-family: 'Segoe UI', Tahoma, sans-serif; margin: 0; line-height: 1.6; color: #333; background: #fdfdfd; overflow-x: hidden; overflow-wrap: break-word; word-break: break-word; }
         
         /* ГЛАВНЫЙ ЭКРАН (HERO) */
         .hero {
@@ -38,7 +38,7 @@
         .container { max-width: 1100px; margin: 0 auto; padding: 0 20px; }
 
         /* ВИДЖЕТ ПОГОДЫ */
-        .weather-box {
+        .weather-box { min-height: 140px; overflow-wrap: break-word;  min-height: 140px; overflow-wrap: break-word; 
             background: white; padding: 30px; border-radius: 20px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             display: flex; align-items: center; justify-content: center;
@@ -106,7 +106,7 @@
             .hero-content h2 { font-size: 2.2rem; }
             .timeline { flex-direction: column; gap: 80px; align-items: center; }
             .timeline::before { display: none; }
-            .weather-box { flex-direction: column; text-align: center; }
+            .weather-box { min-height: 140px; overflow-wrap: break-word;  min-height: 140px; overflow-wrap: break-word;  flex-direction: column; text-align: center; }
         }
     </style>
 </head>
@@ -225,14 +225,16 @@
     }
 
     // Скрипт погоды
+    
     async function getSimpleWeather() {
         try {
             const response = await fetch('https://wttr.in/Nikolayevka?format=j1');
+            if (!response.ok) throw new Error('Network response error');
             const data = await response.json();
             const temp = data.current_condition[0].temp_C;
             const desc = data.current_condition[0].lang_ru[0].value;
 
-            document.getElementById('temp-value').innerText = temp > 0 ? '+' + temp : temp;
+            document.getElementById('temp-value').innerText = parseInt(temp) > 0 ? '+' + temp : temp;
             document.getElementById('weather-desc').innerText = desc;
 
             const icon = document.getElementById('weather-icon');
@@ -240,24 +242,28 @@
             const container = document.getElementById('weather-container');
 
             if (parseInt(temp) < 5) {
-                icon.innerText = "❄️";
-                advice.innerText = "Холодно. Проверяем кормушки для птиц!";
-                container.style.borderLeftColor = "#2196F3";
+                if(icon) icon.innerText = "❄️";
+                if(advice) advice.innerText = "Холодно. Проверяем кормушки для птиц!";
+                if(container) container.style.borderLeftColor = "#2196F3";
             } else if (parseInt(temp) > 25) {
-                icon.innerText = "☀️";
-                advice.innerText = "Жарко! Нужен полив саженцам.";
-                container.style.borderLeftColor = "#FF9800";
+                if(icon) icon.innerText = "☀️";
+                if(advice) advice.innerText = "Жарко! Нужен полив саженцам.";
+                if(container) container.style.borderLeftColor = "#FF9800";
             } else {
-                icon.innerText = "🍃";
-                advice.innerText = "Хорошая погода для работы в лесу.";
-                container.style.borderLeftColor = "#4CAF50";
+                if(icon) icon.innerText = "🍃";
+                if(advice) advice.innerText = "Хорошая погода для работы в лесу.";
+                if(container) container.style.borderLeftColor = "#4CAF50";
             }
         } catch (e) {
-            document.getElementById('weather-desc').innerText = "данные обновляются";
+            console.log("Ошибка загрузки погоды:", e);
+            if(document.getElementById('weather-desc')) document.getElementById('weather-desc').innerText = "Служба погоды временно недоступна";
+            if(document.getElementById('temp-value')) document.getElementById('temp-value').innerText = "---";
+            if(document.getElementById('weather-icon')) document.getElementById('weather-icon').innerText = "🍃";
+            if(document.getElementById('weather-advice')) document.getElementById('weather-advice').innerText = "Берегите природу в любую погоду!";
         }
     }
 
-    window.onload = () => {
+window.onload = () => {
         getSimpleWeather();
         updateTip();
         setInterval(updateTip, 10000);
